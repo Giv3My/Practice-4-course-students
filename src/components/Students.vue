@@ -58,7 +58,12 @@
       <div class="section">
         <span>{{ student.isDonePr ? "Сдал" : "Не сдал" }}</span>
         <input type="checkbox" v-model="student.isDonePr" />
-        <button @click="deleteStudent(student._id)">Удалить</button>
+        <button
+          @click.prevent="deleteStudent(student._id)"
+          v-if="getCurrentUser.group === student.group"
+        >
+          Удалить
+        </button>
         <button @click="updateForm(student)">Редактировать</button>
       </div>
     </div>
@@ -167,15 +172,16 @@ export default {
   },
 
   computed: {
-    // studentsCount: function () {
-    //   return this.students.length;
-    // },
     studentsCount: function () {
       return this.$store.getters.getCount;
     },
 
     getTheme: function () {
-      return (this.currentTheme = this.$store.getters.getTheme);
+      return this.$store.getters.getTheme;
+    },
+
+    getCurrentUser() {
+      return this.$store.getters.getUser;
     },
   },
 };
