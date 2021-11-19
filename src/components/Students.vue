@@ -96,7 +96,7 @@ export default {
 
   mounted: function () {
     Vue.axios
-      .get("http://46.101.212.195:3000/students")
+      .get("http://localhost:3000/students") //46.101.212.195
       .then(({ data: students }) => {
         this.students = [...students];
       })
@@ -180,7 +180,7 @@ export default {
       return this.$store.getters.getTheme;
     },
 
-    getCurrentUser() {
+    getCurrentUser: function () {
       return this.$store.getters.getUser;
     },
   },
